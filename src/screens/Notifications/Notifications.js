@@ -1,9 +1,7 @@
 import React from 'react';
-import {StyleSheet, ScrollView, Text} from 'react-native';
-import Row from '../components/Row';
+import { StyleSheet, ScrollView, Text } from 'react-native';
 
-class NavigationTypes extends React.Component {
-
+class Notifications extends React.Component {
   constructor(props) {
     super(props);
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
@@ -30,7 +28,7 @@ class NavigationTypes extends React.Component {
   pushScreen = () => {
     this.props.navigator.push({
       screen: 'example.Types.Push',
-      title: 'New Screen',
+      title: 'New Screen'
     });
   };
 
@@ -41,18 +39,23 @@ class NavigationTypes extends React.Component {
       previewCommit: true,
       previewHeight: 250,
       previewView: this.previewRef,
-      previewActions: [{
-        id: 'action-cancel',
-        title: 'Cancel'
-      }, {
-        id: 'action-delete',
-        title: 'Delete',
-        actions: [{
-          id: 'action-delete-sure',
-          title: 'Are you sure?',
-          style: 'destructive'
-        }]
-      }]
+      previewActions: [
+        {
+          id: 'action-cancel',
+          title: 'Cancel'
+        },
+        {
+          id: 'action-delete',
+          title: 'Delete',
+          actions: [
+            {
+              id: 'action-delete-sure',
+              title: 'Are you sure?',
+              style: 'destructive'
+            }
+          ]
+        }
+      ]
     });
   };
 
@@ -60,7 +63,7 @@ class NavigationTypes extends React.Component {
     console.log('RANG', 'pushListScreen');
     this.props.navigator.push({
       screen: 'example.Types.ListScreen',
-      title: 'List Screen',
+      title: 'List Screen'
     });
   };
 
@@ -81,30 +84,33 @@ class NavigationTypes extends React.Component {
     this.props.navigator.push({
       screen: 'example.Types.TopTabs',
       title: 'Top Tabs',
-      topTabs: [{
-        screenId: 'example.Types.TopTabs.TabOne',
-        title: 'Tab One',
-      }, {
-        screenId: 'example.Types.TopTabs.TabTwo',
-        title: 'Tab Two',
-      }],
+      topTabs: [
+        {
+          screenId: 'example.Types.TopTabs.TabOne',
+          title: 'Tab One'
+        },
+        {
+          screenId: 'example.Types.TopTabs.TabTwo',
+          title: 'Tab Two'
+        }
+      ]
     });
   };
 
   showModal = () => {
     this.props.navigator.showModal({
       screen: 'example.Types.Modal',
-      title: 'Modal',
+      title: 'Modal'
     });
   };
 
   showLightBox = () => {
     this.props.navigator.showLightBox({
-      screen: "example.Types.LightBox",
+      screen: 'example.Types.LightBox',
       passProps: {
         title: 'LightBox',
-        content: 'Hey there, I\'m a light box screen :D',
-        onClose: this.dismissLightBox,
+        content: "Hey there, I'm a light box screen :D",
+        onClose: this.dismissLightBox
       },
       style: {
         backgroundBlur: 'dark',
@@ -120,14 +126,14 @@ class NavigationTypes extends React.Component {
 
   showInAppNotification = () => {
     this.props.navigator.showInAppNotification({
-      screen: 'example.Types.Notification',
+      screen: 'example.Types.Notification'
     });
   };
 
   render() {
     return (
       <ScrollView style={styles.container}>
-        <Text>Hola</Text>
+        <Text>Notifications</Text>
       </ScrollView>
     );
   }
@@ -135,7 +141,7 @@ class NavigationTypes extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 1
   },
   row: {
     height: 48,
@@ -144,11 +150,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderBottomWidth: 1,
-    borderBottomColor: 'rgba(0, 0, 0, 0.054)',
+    borderBottomColor: 'rgba(0, 0, 0, 0.054)'
   },
   text: {
-    fontSize: 16,
-  },
+    fontSize: 16
+  }
 });
 
-export default NavigationTypes;
+export default Notifications;
