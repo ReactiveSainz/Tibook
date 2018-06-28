@@ -133,7 +133,7 @@ class Home extends React.Component {
   render() {
     return (
       <ScrollView style={styles.container}>
-        <Text>hvgcg</Text>
+        <Text>Home</Text>
       </ScrollView>
     );
   }

@@ -1,9 +1,12 @@
 const SCREENS = {
-  HOME: 'example.Home',
-  SETTINGS: 'example.Settings',
-  NOTIFICATIONS: 'example.Notifications',
-  SEARCH: 'example.Search',
-  PUBLICATIONS: 'example.publications'
+  HOME: 'Tibook.Home',
+  SETTINGS: 'Tibook.Settings',
+  NOTIFICATIONS: 'Tibook.Notifications',
+  SEARCH: 'Tibook.Search',
+  PUBLICATIONS: 'Tibook.Publications',
+  LOGIN: 'Tibook.Login',
+  REGISTER: 'Tibook.Register',
+  STARTSCREEN: 'Tibook.StartScreen'
 };
 
 export default SCREENS;

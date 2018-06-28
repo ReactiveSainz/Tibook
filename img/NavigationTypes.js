@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, ScrollView, Text } from 'react-native';
 
-class Home extends React.Component {
+class NavigationTypes extends React.Component {
   constructor(props) {
     super(props);
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
@@ -133,7 +133,7 @@ class Home extends React.Component {
   render() {
     return (
       <ScrollView style={styles.container}>
-        <Text>hvgcg</Text>
+        <Text>Hola</Text>
       </ScrollView>
     );
   }
@@ -157,4 +157,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Home;
+export default NavigationTypes;
