@@ -6,6 +6,7 @@ const SCREENS = {
   PUBLICATIONS: 'Tibook.Publications',
   LOGIN: 'Tibook.Login',
   REGISTER: 'Tibook.Register',
+  AUTH: 'Tibook.Auth',
   STARTSCREEN: 'Tibook.StartScreen'
 };
 
