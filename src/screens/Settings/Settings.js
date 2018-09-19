@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, ScrollView, Text } from 'react-native';
+import { StyleSheet, ScrollView, Text, View } from 'react-native';
 
 class SettingsScreen extends React.Component {
   constructor(props) {
@@ -8,16 +8,17 @@ class SettingsScreen extends React.Component {
 
   render() {
     return (
-      <ScrollView style={styles.container}>
+      <View style={styles.container}>
         <Text>SettingsScreen</Text>
-      </ScrollView>
+      </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    backgroundColor: 'red'
   }
 });
 

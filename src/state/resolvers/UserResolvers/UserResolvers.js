@@ -1,30 +1,31 @@
 import { gql } from 'apollo-boost';
+import { NAV } from '../../../utilities';
 
 export default {
-  Query: {
-    me: async (_, args, { cache }) => {
-      const me = await cache.readQuery({
-        query: gql`
-          query User @client {
-            token
-            email
-            username
-          }
-        `
-      });
-      return me;
+  Mutation: {
+    logOut: async (_, args, { cache, client }) => {
+      const data = {
+        User: {
+          __typename: 'User',
+          token: ''
+        }
+      };
+      cache.writeData({ data });
+      client.resetStore();
+      NAV.default.goAuth();
+      return null;
     },
-    token: async (_, args, { cache }) => {
-      const token = await cache.readQuery({
-        query: gql`
-          query User @client {
-            token
-          }
-        `
-      });
 
-      return token;
+    logIn: async (_, { token }, { cache }) => {
+      const data = {
+        User: {
+          __typename: 'User',
+          token
+        }
+      };
+      cache.writeData({ data });
+      NAV.default.goHome();
+      return null;
     }
-  },
-  Mutation: {}
+  }
 };

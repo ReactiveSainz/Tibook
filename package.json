@@ -8,7 +8,15 @@
   },
   "dependencies": {
     "apollo-boost": "^0.1.15",
+    "apollo-cache-inmemory": "^1.2.10",
+    "apollo-cache-persist": "^0.1.1",
+    "apollo-client": "^2.4.2",
+    "apollo-link": "^1.2.3",
+    "apollo-link-context": "^1.0.9",
+    "apollo-link-http": "^1.5.5",
+    "apollo-link-state": "^0.4.2",
     "graphql": "^14.0.2",
+    "graphql-tag": "^2.9.2",
     "hoist-non-react-statics": "^3.0.1",
     "moment": "^2.22.2",
     "react": "16.3.1",
@@ -18,7 +26,9 @@
     "react-native-maps": "^0.21.0",
     "react-native-navigation": "^2.0.2538",
     "react-native-permissions": "^1.1.1",
-    "react-native-vector-icons": "^4.6.0"
+    "react-native-status-bar-height": "^2.0.0",
+    "react-native-vector-icons": "^4.6.0",
+    "styled-components": "^3.4.6"
   },
   "devDependencies": {
     "babel-jest": "23.0.1",

@@ -7,8 +7,6 @@ const GET_TOKEN = gql`
   query getME {
     User @client {
       token
-      username
-      email
     }
   }
 `;
@@ -21,7 +19,6 @@ class StartPageScreen extends Component {
           if (error) return null;
           if (loading || !data) return null;
           {
-            console.log('data', data);
             if (data.User.token !== '') NAV.default.goHome();
             else NAV.default.goAuth();
           }

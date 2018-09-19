@@ -15,4 +15,11 @@ Navigation.events().registerAppLaunchedListener(() => {
       }
     }
   });
+
+  Navigation.setDefaultOptions({
+    layout: {
+      backgroundColor: 'white',
+      orientation: ['portrait']
+    }
+  });
 });

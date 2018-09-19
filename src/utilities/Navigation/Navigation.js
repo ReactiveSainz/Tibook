@@ -1,5 +1,5 @@
 import { Navigation } from 'react-native-navigation';
-import { SCREENS } from '../../constants';
+import { SCREENS, COLORS } from '../../constants';
 
 export const goHome = () => {
   return Navigation.setRoot({
@@ -14,8 +14,19 @@ export const goHome = () => {
 export const goAuth = () => {
   return Navigation.setRoot({
     root: {
-      component: {
-        name: SCREENS.AUTH
+      stack: {
+        children: [
+          {
+            component: {
+              name: SCREENS.AUTH
+            }
+          }
+        ],
+        options: {
+          topBar: {
+            visible: false
+          }
+        }
       }
     }
   });

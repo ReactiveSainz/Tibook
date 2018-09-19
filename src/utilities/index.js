@@ -1,3 +1,5 @@
 import * as HOCS from './HOCS';
 import * as NAV from './Navigation';
-export { HOCS, NAV };
+
+const getError = error => JSON.parse(JSON.stringify(error));
+export { HOCS, NAV, getError };
