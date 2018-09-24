@@ -15,6 +15,7 @@ export const goAuth = () => {
   return Navigation.setRoot({
     root: {
       stack: {
+        id: 'App',
         children: [
           {
             component: {

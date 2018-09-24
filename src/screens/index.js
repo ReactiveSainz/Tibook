@@ -39,7 +39,6 @@ export default function registerScreens() {
     });
 
     const token = query.User.token != '' ? query.User.token : null;
-    console.log('token', token);
     operation.setContext({
       headers: {
         token
@@ -48,7 +47,6 @@ export default function registerScreens() {
     return forward(operation);
   });
 
-  AsyncStorage.clear();
   const stateLink = withClientState({
     cache,
     resolvers,
@@ -59,7 +57,6 @@ export default function registerScreens() {
   persistCache({
     cache,
     storage: AsyncStorage,
-    trigger: 'background',
     debug: true
   });
 

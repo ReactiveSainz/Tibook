@@ -6,6 +6,7 @@ import { Mutation, graphql } from 'react-apollo';
 
 import { statusBarHeight, COLORS } from '../../constants';
 import { getError } from '../../utilities';
+
 import { TextInput, Button } from '../../components';
 
 const SIGN_IN = gql`
@@ -52,7 +53,6 @@ class LoginScreen extends Component {
   };
 
   render() {
-    console.log('', this.props);
     const { mainField, password } = this.state;
     return (
       <Mutation mutation={SIGN_IN} onCompleted={this.onCompleted}>
@@ -65,13 +65,14 @@ class LoginScreen extends Component {
             <View style={styles.container}>
               <TextInput
                 value={mainField}
-                containerStyle={{}}
+                label={'email'}
                 keyboardType="email-address"
                 onChange={this.onChangeMainField}
               />
               <TextInput
                 value={password}
-                containerStyle={{ marginTop: 16 }}
+                label={'password'}
+                style={{ marginTop: 16 }}
                 onChange={this.onChangePassword}
               />
               {error &&

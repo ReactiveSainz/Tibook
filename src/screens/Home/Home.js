@@ -1,7 +1,7 @@
 import React from 'react';
-import { StyleSheet, ScrollView, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, ScrollView, Text, View, TouchableOpacity, AsyncStorage } from 'react-native';
 import { gql } from 'apollo-boost';
-import { Query } from 'react-apollo';
+import { Query, graphql } from 'react-apollo';
 import { COLORS } from '../../constants';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Navigation } from 'react-native-navigation';
@@ -13,17 +13,26 @@ const GET_ME = gql`
       name
       nickname
       email
+      role
+      gender
     }
   }
 `;
 
+const LOG_OUT = gql`
+  mutation logOut {
+    logOut @client
+  }
+`;
 class Home extends React.Component {
   constructor(props) {
     super(props);
   }
+  logOut = async client => {
+    // this.props.mutate({ variables: {} });
+  };
 
   goToSettings = () => {
-    console.log('this.props', this.props);
     Navigation.push(this.props.componentId, {
       component: {
         name: SCREENS.SETTINGS
@@ -34,13 +43,15 @@ class Home extends React.Component {
   render() {
     return (
       <Query
-        fetchPolicy="network-only"
         query={GET_ME}
         onError={error => console.log('errorHome', error)}
         onCompleted={complete => console.log('complete', complete)}
       >
-        {({ loading, error, data }) => {
+        {({ loading, error, data, client }) => {
+          console.log('client', client);
+
           if (error) return null;
+
           if (loading || !data) return null;
 
           if (!data.me) {
@@ -49,7 +60,7 @@ class Home extends React.Component {
           }
 
           const { me } = data,
-            { name, email, nickname } = me;
+            { name, email, nickname, role } = me;
 
           return (
             <View>
@@ -64,13 +75,20 @@ class Home extends React.Component {
                   paddingTop: 24
                 }}
               >
-                <Text style={{ color: COLORS.white }}>{name}</Text>
+                <Text style={{ color: COLORS.white }}>{nickname}</Text>
                 <TouchableOpacity onPress={this.goToSettings}>
                   <Icon name="ios-settings" size={24} color={COLORS.white} />
                 </TouchableOpacity>
+                <TouchableOpacity onPress={this.logOut}>
+                  <Text style={{ color: COLORS.white }}>Cerrar sesion</Text>
+                </TouchableOpacity>
               </View>
               <ScrollView style={styles.container}>
-                <Text>dsfsf </Text>
+                <Text>Principal Screen</Text>
+                <Text>{name}</Text>
+                <Text>{nickname}</Text>
+                <Text>{email}</Text>
+                <Text>{role}</Text>
               </ScrollView>
             </View>
           );
@@ -82,8 +100,9 @@ class Home extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    marginHorizontal: 16,
+    marginVertical: 8
   }
 });
 
-export default Home;
+export default graphql(LOG_OUT)(Home);
