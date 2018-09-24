@@ -1,25 +1,29 @@
 import React from 'react';
-import { TextInput, Text, View, StyleSheet } from 'react-native';
 import { COLORS } from '../../constants';
+import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 
-export default ({
-  value = '',
-  keyboardType = 'default',
-  containerStyle = {},
-  inputStyle = {},
-  onChange,
-  spellCheck = false,
-  ...props
-}) => {
+const CTextInput = ({ label, style, value = '', onChange, ...props }) => {
+  this.inputRef = React.createRef();
   return (
-    <View style={[styles.container, containerStyle]}>
+    <View style={[styles.container, style]}>
+      <TouchableOpacity
+        onPress={() => {
+          this.inputRef && this.inputRef.current.focus();
+        }}
+      >
+        <Text style={{ color: COLORS.blue }}>{label}</Text>
+      </TouchableOpacity>
       <TextInput
         {...props}
-        onChange={onChange}
-        style={[styles.input, inputStyle]}
+        ref={this.inputRef}
         value={value}
-        spellCheck={spellCheck}
-        keyboardType={keyboardType}
+        onChangeText={onChange}
+        style={{
+          marginTop: 4,
+          borderBottomColor: COLORS.blue,
+          borderBottomWidth: 1,
+          paddingBottom: 5
+        }}
       />
     </View>
   );
@@ -27,15 +31,9 @@ export default ({
 
 const styles = {
   container: {
-    minHeight: 32,
-    minWidth: 100,
-    paddingHorizontal: 8,
-    paddingVertical: 8,
-    borderRadius: 4,
-    borderColor: COLORS.disabled,
-    borderWidth: StyleSheet.hairlineWidth
-  },
-  input: {
-    fontSize: 16
+    display: 'flex',
+    flexDirection: 'column'
   }
 };
+
+export default CTextInput;
