@@ -22,6 +22,9 @@ import Notifications from './Notifications';
 import Publications from './Publications';
 import LoginScreen from './Login';
 import RegisterScreen from './Register';
+import CameraScreen from './Camera';
+import AddCreditCardModal from './AddCreditCardModal';
+import AddAddressModal from './AddAddressModal';
 
 export default function registerScreens() {
   const cache = new InMemoryCache();
@@ -65,6 +68,8 @@ export default function registerScreens() {
     link: ApolloLink.from([authMiddleware, stateLink, httpLink])
   });
 
+  apolloClient.onResetStore(stateLink.writeDefaults);
+
   Navigation.registerComponent(SCREENS.STARTSCREEN, () =>
     HOCS.withApollo(StartScreen, apolloClient)
   );
@@ -78,5 +83,12 @@ export default function registerScreens() {
   Navigation.registerComponent(SCREENS.LOGIN, () => HOCS.withApollo(LoginScreen, apolloClient));
   Navigation.registerComponent(SCREENS.REGISTER, () =>
     HOCS.withApollo(RegisterScreen, apolloClient)
+  );
+  Navigation.registerComponent(SCREENS.CAMERA, () => HOCS.withApollo(CameraScreen, apolloClient));
+  Navigation.registerComponent(SCREENS.ADD_CREDIT_CARD_MODAL, () =>
+    HOCS.withApollo(AddCreditCardModal, apolloClient)
+  );
+  Navigation.registerComponent(SCREENS.ADD_ADDRESS_MODAL, () =>
+    HOCS.withApollo(AddAddressModal, apolloClient)
   );
 }

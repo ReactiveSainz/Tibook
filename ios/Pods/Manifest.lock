@@ -29,13 +29,13 @@ PODS:
     - GoogleMaps/Base
   - React (0.55.4):
     - React/Core (= 0.55.4)
-  - react-native-camera (1.2.0):
+  - react-native-camera (1.1.4):
     - React
-    - react-native-camera/RCT (= 1.2.0)
-    - react-native-camera/RN (= 1.2.0)
-  - react-native-camera/RCT (1.2.0):
+    - react-native-camera/RCT (= 1.1.4)
+    - react-native-camera/RN (= 1.1.4)
+  - react-native-camera/RCT (1.1.4):
     - React
-  - react-native-camera/RN (1.2.0):
+  - react-native-camera/RN (1.1.4):
     - React
   - react-native-google-maps (0.21.0):
     - Google-Maps-iOS-Utils (= 2.1.0)
@@ -92,6 +92,10 @@ PODS:
     - React
   - RNVectorIcons (4.6.0):
     - React
+  - Stripe (11.2.0)
+  - tipsi-stripe (5.6.0):
+    - React
+    - Stripe (~> 11.2.0)
   - yoga (0.55.4.React)
 
 DEPENDENCIES:
@@ -115,6 +119,8 @@ DEPENDENCIES:
   - React/RCTWebSocket (from `../node_modules/react-native`)
   - ReactNativePermissions (from `../node_modules/react-native-permissions`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
+  - Stripe (~> 11.2.0)
+  - tipsi-stripe (from `../node_modules/tipsi-stripe`)
   - yoga (from `../node_modules/react-native/ReactCommon/yoga/yoga.podspec`)
 
 SPEC REPOS:
@@ -125,6 +131,7 @@ SPEC REPOS:
     - glog
     - Google-Maps-iOS-Utils
     - GoogleMaps
+    - Stripe
 
 EXTERNAL SOURCES:
   React:
@@ -139,6 +146,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-permissions"
   RNVectorIcons:
     :path: "../node_modules/react-native-vector-icons"
+  tipsi-stripe:
+    :path: "../node_modules/tipsi-stripe"
   yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga/yoga.podspec"
 
@@ -150,13 +159,15 @@ SPEC CHECKSUMS:
   Google-Maps-iOS-Utils: c32891ff472eaaa1fca032beedafa1a013af7875
   GoogleMaps: c087b8e5dfe87ca6ebf59adb9b4894a4146bec4f
   React: aa2040dbb6f317b95314968021bd2888816e03d5
-  react-native-camera: 68ad5143d2d0636236d46c7de8d2a6455ca52a36
+  react-native-camera: ab22041dcf0403d88f2ae4b9ea3ed2644e680423
   react-native-google-maps: 2cfe3b01f8422c7dae51d8764139fd70f888cfce
   react-native-maps: 066c2afcc89e18726377bcc685315f989ca22449
   ReactNativePermissions: 9f2d9c45c98800795e6c2ed330e25d11a66a8169
   RNVectorIcons: c0dbfbf6068fefa240c37b0f71bd03b45dddac44
+  Stripe: 898f83a95d72180c6eb4acd65b2ae6158fc6a8bd
+  tipsi-stripe: 5688e4b999acac90e97db93c83957dae0aa32cde
   yoga: a23273df0088bf7f2bb7e5d7b00044ea57a2a54a
 
-PODFILE CHECKSUM: f045c2d6490b96e1ea9b046959e8679e92cc71ad
+PODFILE CHECKSUM: 5f3f7bcbe1083f41dff82acc859db1120200809e
 
 COCOAPODS: 1.5.3

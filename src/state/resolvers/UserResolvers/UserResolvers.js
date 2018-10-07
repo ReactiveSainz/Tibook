@@ -11,7 +11,6 @@ export default {
         }
       };
       cache.writeData({ data });
-      client.resetStore();
       NAV.default.goAuth();
       return null;
     },

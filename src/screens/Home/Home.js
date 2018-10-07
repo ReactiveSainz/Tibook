@@ -7,6 +7,8 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { Navigation } from 'react-native-navigation';
 import { NAV } from '../../utilities';
 import { SCREENS } from '../../constants';
+import { TextInput, Card } from '../../components';
+
 const GET_ME = gql`
   query getME {
     me {
@@ -19,23 +21,45 @@ const GET_ME = gql`
   }
 `;
 
-const LOG_OUT = gql`
-  mutation logOut {
-    logOut @client
-  }
-`;
 class Home extends React.Component {
   constructor(props) {
     super(props);
   }
+
   logOut = async client => {
-    // this.props.mutate({ variables: {} });
+    await client.cache.reset();
+    AsyncStorage.clear();
+    NAV.default.goAuth();
   };
 
   goToSettings = () => {
     Navigation.push(this.props.componentId, {
       component: {
         name: SCREENS.SETTINGS
+      }
+    });
+  };
+
+  goToAddCreditCard = () => {
+    Navigation.push(this.props.componentId, {
+      component: {
+        name: SCREENS.ADD_CREDIT_CARD_MODAL
+      }
+    });
+  };
+
+  goToAddAdress = () => {
+    Navigation.push(this.props.componentId, {
+      component: {
+        name: SCREENS.ADD_ADDRESS_MODAL
+      }
+    });
+  };
+
+  goToCamera = () => {
+    Navigation.push(this.props.componentId, {
+      component: {
+        name: SCREENS.CAMERA
       }
     });
   };
@@ -54,16 +78,11 @@ class Home extends React.Component {
 
           if (loading || !data) return null;
 
-          if (!data.me) {
-            NAV.default.goAuth();
-            return null;
-          }
-
           const { me } = data,
             { name, email, nickname, role } = me;
 
           return (
-            <View>
+            <View style={{ flex: 1, display: 'flex' }}>
               <View
                 style={{
                   backgroundColor: COLORS.blue,
@@ -79,16 +98,19 @@ class Home extends React.Component {
                 <TouchableOpacity onPress={this.goToSettings}>
                   <Icon name="ios-settings" size={24} color={COLORS.white} />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={this.logOut}>
+                <TouchableOpacity onPress={() => this.logOut(client)}>
                   <Text style={{ color: COLORS.white }}>Cerrar sesion</Text>
                 </TouchableOpacity>
               </View>
               <ScrollView style={styles.container}>
-                <Text>Principal Screen</Text>
-                <Text>{name}</Text>
-                <Text>{nickname}</Text>
-                <Text>{email}</Text>
-                <Text>{role}</Text>
+                <Card style={{ marginHorizontal: 12 }} onPress={this.goToAddCreditCard}>
+                  <Text>{name}</Text>
+                  <Text>añadir tarjeta</Text>
+                </Card>
+                <Card style={{ marginHorizontal: 12 }} onPress={this.goToAddAdress}>
+                  <Text>{name}</Text>
+                  <Text>añadir direccion</Text>
+                </Card>
               </ScrollView>
             </View>
           );
@@ -100,9 +122,11 @@ class Home extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    marginHorizontal: 16,
-    marginVertical: 8
+    flex: 1,
+    marginTop: 12,
+    display: 'flex',
+    flexDirection: 'column'
   }
 });
 
-export default graphql(LOG_OUT)(Home);
+export default Home;

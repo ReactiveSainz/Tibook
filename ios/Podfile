@@ -1,6 +1,7 @@
 platform :ios, '9.0'
 source 'https://github.com/CocoaPods/Specs.git'
 target 'Tibook' do
+  pod 'Stripe', '~> 11.2.0'
   
   #use_frameworks!
 
@@ -31,6 +32,8 @@ target 'Tibook' do
   pod 'GoogleMaps'  # Remove this line if you don't want to support GoogleMaps on iOS
   pod 'Google-Maps-iOS-Utils' # Remove this line if you don't want to support GoogleMaps on iOS
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+
+  pod 'tipsi-stripe', :path => '../node_modules/tipsi-stripe'
 
 end
 

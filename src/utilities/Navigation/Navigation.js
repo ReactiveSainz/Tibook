@@ -4,8 +4,20 @@ import { SCREENS, COLORS } from '../../constants';
 export const goHome = () => {
   return Navigation.setRoot({
     root: {
-      component: {
-        name: SCREENS.HOME
+      stack: {
+        id: 'App',
+        children: [
+          {
+            component: {
+              name: SCREENS.HOME
+            }
+          }
+        ],
+        options: {
+          topBar: {
+            visible: false
+          }
+        }
       }
     }
   });
@@ -15,7 +27,6 @@ export const goAuth = () => {
   return Navigation.setRoot({
     root: {
       stack: {
-        id: 'App',
         children: [
           {
             component: {
