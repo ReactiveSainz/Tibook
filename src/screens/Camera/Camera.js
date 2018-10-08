@@ -8,8 +8,10 @@ class CameraScreen extends React.Component {
   }
 
   onBarCodeRead = barCode => {
+    alert('codeRead', barCode);
     console.log('barCode', barCode);
   };
+
   render() {
     return (
       <View>

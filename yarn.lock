@@ -4715,6 +4715,12 @@ react-native-dropdown@0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/react-native-dropdown/-/react-native-dropdown-0.0.6.tgz#f4b899b4082c4823340c7377fbe73bc01399148d"
 
+react-native-in-app-notification@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/react-native-in-app-notification/-/react-native-in-app-notification-2.2.0.tgz#690a9ef75bd0eecc15de77468f009a762c9f1748"
+  dependencies:
+    react-native-swipe-gestures "^1.0.2"
+
 react-native-iphone-x-helper@^1.0.1:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/react-native-iphone-x-helper/-/react-native-iphone-x-helper-1.1.0.tgz#3a881720900bd8d1c67de2c465ea9aa9296180a7"
@@ -4744,6 +4750,10 @@ react-native-status-bar-height@^2.0.0:
   resolved "https://registry.yarnpkg.com/react-native-status-bar-height/-/react-native-status-bar-height-2.0.0.tgz#9def59bdfa162da73134aff4f480ef2fc873ee0a"
   dependencies:
     react-native-iphone-x-helper "^1.0.1"
+
+react-native-swipe-gestures@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/react-native-swipe-gestures/-/react-native-swipe-gestures-1.0.2.tgz#914e1a72a94bc55b322b4622a01103ab879296dd"
 
 react-native-vector-icons@^4.6.0:
   version "4.6.0"

@@ -9,6 +9,7 @@ const SCREENS = {
   AUTH: 'Tibook.Auth',
   STARTSCREEN: 'Tibook.StartScreen',
   CAMERA: 'Tibook.Camera',
+  CARDS_SCREEN: 'Tiboook.CreditCardsScreen',
   ADD_CREDIT_CARD_MODAL: 'Tibook.AddCreditCardModal',
   ADD_ADDRESS_MODAL: 'Tibook.AddAddressModal'
 };

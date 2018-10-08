@@ -1,12 +1,12 @@
 import React from 'react';
 
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 import { gql } from 'apollo-boost';
-import { Mutation, graphql } from 'react-apollo';
+import { Mutation } from 'react-apollo';
 
 import { Button, TextInput } from '../../components';
 
-import { Address, validate } from 'address-validator';
+// import { Address, validate } from 'address-validator';
 
 const ADD_ADDRESS = gql`
   mutation(
@@ -33,6 +33,16 @@ const ADD_ADDRESS = gql`
 `;
 
 class AddCreditCardModal extends React.Component {
+  static options(passProps) {
+    return {
+      topBar: {
+        title: {
+          text: 'Agregar dirección'
+        }
+      }
+    };
+  }
+
   state = {
     state: '',
     city: '',
@@ -45,6 +55,7 @@ class AddCreditCardModal extends React.Component {
 
   addAdress = addAdress => {
     console.log('add Address', this.state);
+    addAddres({ variables: { ...this.state } });
   };
   onCompleted = result => {
     console.log('onClompleted', result);
@@ -64,7 +75,14 @@ class AddCreditCardModal extends React.Component {
       <Mutation mutation={ADD_ADDRESS} onCompleted={this.onCompleted}>
         {(addAdress, { data, loading, error }) => {
           return (
-            <View style={{ display: 'flex', flexDirection: 'column', paddingHorizontal: 32 }}>
+            <View
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                paddingHorizontal: 32,
+                paddingVertical: 32
+              }}
+            >
               <TextInput value={state} label={'Estado'} onChange={this.onChangeState} />
               <TextInput value={city} label={'Ciudad'} onChange={this.onChangeCity} />
               <TextInput

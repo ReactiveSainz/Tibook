@@ -7,7 +7,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { Navigation } from 'react-native-navigation';
 import { NAV } from '../../utilities';
 import { SCREENS } from '../../constants';
-import { TextInput, Card } from '../../components';
+import { Card } from '../../components';
 
 const GET_ME = gql`
   query getME {
@@ -40,10 +40,10 @@ class Home extends React.Component {
     });
   };
 
-  goToAddCreditCard = () => {
+  goToCreditCards = () => {
     Navigation.push(this.props.componentId, {
       component: {
-        name: SCREENS.ADD_CREDIT_CARD_MODAL
+        name: SCREENS.CARDS_SCREEN
       }
     });
   };
@@ -103,12 +103,13 @@ class Home extends React.Component {
                 </TouchableOpacity>
               </View>
               <ScrollView style={styles.container}>
-                <Card style={{ marginHorizontal: 12 }} onPress={this.goToAddCreditCard}>
-                  <Text>{name}</Text>
-                  <Text>añadir tarjeta</Text>
+                <Card style={{ marginHorizontal: 12 }} onPress={this.goToCamera}>
+                  <Text>camera</Text>
+                </Card>
+                <Card style={{ marginHorizontal: 12 }} onPress={this.goToCreditCards}>
+                  <Text>lista de tarjetas</Text>
                 </Card>
                 <Card style={{ marginHorizontal: 12 }} onPress={this.goToAddAdress}>
-                  <Text>{name}</Text>
                   <Text>añadir direccion</Text>
                 </Card>
               </ScrollView>

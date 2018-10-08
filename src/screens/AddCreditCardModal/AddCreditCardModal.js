@@ -1,11 +1,13 @@
 import React, { PureComponent } from 'react';
 import { View, Text, StyleSheet, Platform } from 'react-native';
 import stripe from 'tipsi-stripe';
+import { PaymentCardTextField } from 'tipsi-stripe';
 import Spoiler from './Spoiler';
 import { Button } from '../../components';
 
 import { gql } from 'apollo-boost';
-import { Mutation, graphql } from 'react-apollo';
+import { Mutation } from 'react-apollo';
+import { COLORS } from '../../constants';
 
 stripe.setOptions({
   publishableKey: 'pk_test_1tpMb5DqgwwaC4B0jP9vPgDm'
@@ -20,37 +22,42 @@ const CREATE_CARD = gql`
 `;
 
 export default class CustomCardScreen extends PureComponent {
-  static title = 'Custom Card';
+  static options(passProps) {
+    return {
+      topBar: {
+        title: {
+          text: 'Agregar tarjeta'
+        }
+      }
+    };
+  }
 
   state = {
-    loading: false,
+    loadingToken: false,
     token: null,
-    error: null,
+    errorToken: null,
+    valid: false,
     params: {
       number: '4242424242424242',
       expMonth: 12,
       expYear: 24,
-      cvc: '223',
-      name: 'Test User',
-      currency: 'usd',
-      addressLine1: '123 Test Street',
-      addressLine2: 'Apt. 5',
-      addressCity: 'Test City',
-      addressState: 'Test State',
-      addressCountry: 'Test Country',
-      addressZip: '55555'
+      cvc: '223'
     }
+  };
+
+  handleFieldParamsChange = (valid, params) => {
+    this.setState(prevState => ({ ...prevState, valid, params }));
   };
 
   handleCustomPayPress = async createCreditCard => {
     try {
-      this.setState({ loading: true, token: null, error: null });
-
+      this.setState({ token: null, errorToken: null, loadingToken: true });
       const token = await stripe.createTokenWithCard(this.state.params);
       console.log('token', token);
+      this.setState({ loadingToken: false });
       if (token && token.tokenId) createCreditCard({ variables: { token: token.tokenId } });
     } catch (error) {
-      this.setState({ loading: false, error });
+      this.setState({ errorToken: error, loadingToken: false });
     }
   };
 
@@ -59,38 +66,27 @@ export default class CustomCardScreen extends PureComponent {
   };
 
   render() {
-    const { loading, token, error, params } = this.state;
-    console.log('token', token, error, params);
+    const { valid, errorToken, loadingToken } = this.state;
     return (
       <Mutation mutation={CREATE_CARD} onCompleted={this.onCompleted}>
         {(createCreditCard, { data, loading, error }) => {
           return (
             <View style={styles.container}>
-              <Text style={styles.header}>Custom Card Params Example</Text>
-              <Spoiler title="Mandatory Fields">
-                <View style={styles.params}>
-                  <Text style={styles.param}>Number: {params.number}</Text>
-                  <Text style={styles.param}>Month: {params.expMonth}</Text>
-                  <Text style={styles.param}>Year: {params.expYear}</Text>
-                </View>
-              </Spoiler>
-              <Spoiler title="Optional Fields" defaultOpen={false}>
-                <View style={styles.params}>
-                  <Text style={styles.param}>CVC: {params.cvc}</Text>
-                  <Text style={styles.param}>Name: {params.name}</Text>
-                  <Text style={styles.param}>Currency: {params.currency}</Text>
-                  <Text style={styles.param}>Address Line 1: {params.addressLine1}</Text>
-                  <Text style={styles.param}>Address Line 2: {params.addressLine2}</Text>
-                  <Text style={styles.param}>Address City: {params.addressCity}</Text>
-                  <Text style={styles.param}>Address State: {params.addressState}</Text>
-                  <Text style={styles.param}>Address Country: {params.addressCountry}</Text>
-                  <Text style={styles.param}>Address Zip: {params.addressZip}</Text>
-                </View>
-              </Spoiler>
-              <Text style={styles.instruction}>Click button to get token based on params.</Text>
+              <PaymentCardTextField
+                style={styles.field}
+                cursorColor={COLORS.blue}
+                textErrorColor={COLORS.red}
+                placeholderColor={COLORS.disabled}
+                numberPlaceholder="XXXX XXXX XXXX XXXX"
+                expirationPlaceholder="mm/yy"
+                cvcPlaceholder="xxx"
+                disabled={false}
+                onParamsChange={this.handleFieldParamsChange}
+              />
               <Button
-                title="Pay with custom params"
-                loading={loading}
+                disabled={!valid}
+                title="Añadir tarjeta"
+                loading={loading || loadingToken}
                 onPress={() => this.handleCustomPayPress(createCreditCard)}
               />
             </View>
@@ -107,25 +103,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
   },
-  header: {
-    fontSize: 18,
-    textAlign: 'center',
-    margin: 10
-  },
-  params: {
-    backgroundColor: '#fff',
-    borderRadius: 10,
-    padding: 10,
-    alignItems: 'flex-start',
-    margin: 5
-  },
-  param: {
-    fontSize: 12,
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5
-  },
-  token: {
-    height: 20
+  field: {
+    width: 300,
+    color: COLORS.blue,
+    borderBottomColor: COLORS.blue,
+    borderBottomWidth: 2
   }
 });

@@ -23,12 +23,16 @@ import Publications from './Publications';
 import LoginScreen from './Login';
 import RegisterScreen from './Register';
 import CameraScreen from './Camera';
+
+import CreditCardsScreen from './CreditCardsList/';
 import AddCreditCardModal from './AddCreditCardModal';
 import AddAddressModal from './AddAddressModal';
 
+// const uri = 'https://cetiproject.herokuapp.com/';
+const uri = 'http://localhost:4000';
 export default function registerScreens() {
   const cache = new InMemoryCache();
-  const httpLink = new HttpLink({ uri: 'http://localhost:4000' });
+  const httpLink = new HttpLink({ uri });
 
   const authMiddleware = new ApolloLink((operation, forward) => {
     const query = operation.getContext().cache.readQuery({
@@ -70,24 +74,34 @@ export default function registerScreens() {
 
   apolloClient.onResetStore(stateLink.writeDefaults);
 
+  //pantalla inicial
   Navigation.registerComponent(SCREENS.STARTSCREEN, () =>
     HOCS.withApollo(StartScreen, apolloClient)
   );
 
-  Navigation.registerComponent(SCREENS.AUTH, () => HOCS.withApollo(AuthScreen, apolloClient));
   Navigation.registerComponent(SCREENS.HOME, () => HOCS.withApollo(Home, apolloClient));
   Navigation.registerComponent(SCREENS.SEARCH, () => HOCS.withApollo(Search, apolloClient));
   Navigation.registerComponent(SCREENS.SETTINGS, () => Settings);
   Navigation.registerComponent(SCREENS.NOTIFICATIONS, () => Notifications);
   Navigation.registerComponent(SCREENS.PUBLICATIONS, () => Publications);
+
+  //autentificacion
+  Navigation.registerComponent(SCREENS.AUTH, () => HOCS.withApollo(AuthScreen, apolloClient));
   Navigation.registerComponent(SCREENS.LOGIN, () => HOCS.withApollo(LoginScreen, apolloClient));
   Navigation.registerComponent(SCREENS.REGISTER, () =>
     HOCS.withApollo(RegisterScreen, apolloClient)
   );
   Navigation.registerComponent(SCREENS.CAMERA, () => HOCS.withApollo(CameraScreen, apolloClient));
+
+  //tarjetas
+  Navigation.registerComponent(SCREENS.CARDS_SCREEN, () =>
+    HOCS.withApollo(CreditCardsScreen, apolloClient)
+  );
   Navigation.registerComponent(SCREENS.ADD_CREDIT_CARD_MODAL, () =>
     HOCS.withApollo(AddCreditCardModal, apolloClient)
   );
+
+  //direcciones
   Navigation.registerComponent(SCREENS.ADD_ADDRESS_MODAL, () =>
     HOCS.withApollo(AddAddressModal, apolloClient)
   );
