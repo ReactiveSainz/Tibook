@@ -28,8 +28,8 @@ import CreditCardsScreen from './CreditCardsList/';
 import AddCreditCardModal from './AddCreditCardModal';
 import AddAddressModal from './AddAddressModal';
 
-// const uri = 'https://cetiproject.herokuapp.com/';
-const uri = 'http://localhost:4000';
+ const uri = 'https://cetiproject.herokuapp.com/';
+// const uri = 'http://localhost:4000';
 export default function registerScreens() {
   const cache = new InMemoryCache();
   const httpLink = new HttpLink({ uri });

@@ -2,11 +2,35 @@ import React from 'react';
 import { View, Text, FlatList, TouchableOpacity } from 'react-native';
 
 import { gql } from 'apollo-boost';
-import { Query, graphql } from 'react-apollo';
+import { Query } from 'react-apollo';
 import { Navigation } from 'react-native-navigation';
 import { SCREENS } from '../../constants';
 import { COLORS } from '../../constants';
 
+import {
+  BallIndicator,
+  BarIndicator,
+  DotIndicator,
+  MaterialIndicator,
+  PacmanIndicator,
+  PulseIndicator,
+  SkypeIndicator,
+  UIActivityIndicator,
+  WaveIndicator
+} from 'react-native-indicators';
+
+export const GET_CARDS = gql`
+  query GETCARDS {
+    creditCards {
+      last4
+      exp_month
+      exp_year
+      brand
+      country
+      funding
+    }
+  }
+`;
 class CreditCardsSceen extends React.Component {
   static options(passProps) {
     return {
@@ -41,11 +65,55 @@ class CreditCardsSceen extends React.Component {
     });
   };
 
+  renderCard = ({ item, index }) => {
+    return (
+      <View key={index} style={{ borderRadius: 8, backgroundColor: 'red', padding: 20 }}>
+        <Text>{item.brand}</Text>
+        <Text>{item.last4}</Text>
+        <Text>{item.country}</Text>
+        <Text>{`${item.exp_month}/${item.exp_year}`}</Text>
+      </View>
+    );
+  };
+
+  renderSeparator = () => {
+    return <View style={{ marginVertical: 8 }} />;
+  };
+
   render() {
     return (
-      <View>
+      <View style={{ flex: 1, display: 'flex' }}>
         <TouchableOpacity onPress={this.goToAddCreditCard}>Agregar tarjeta</TouchableOpacity>
-        <Text>sfsfsfds</Text>
+        <Query query={GET_CARDS} fetchPolicy="network-only">
+          {({ loading, error, data, client }) => {
+            if (loading)
+              return (
+                <View
+                  style={{
+                    flex: 1,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                  }}
+                >
+                  <PacmanIndicator color={COLORS.blue} />
+                </View>
+              );
+
+            console.log('err', error);
+            if (error) return <Text>error</Text>;
+
+            if (data) console.log('data', data);
+            return (
+              <FlatList
+                contentContainerStyle={{ marginHorizontal: 16, marginVertical: 16 }}
+                data={data.creditCards}
+                renderItem={this.renderCard}
+                ItemSeparatorComponent={this.renderSeparator}
+              />
+            );
+          }}
+        </Query>
       </View>
     );
   }

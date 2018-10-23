@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { View } from 'react-native';
+import { View, ScrollView } from 'react-native';
 import { gql } from 'apollo-boost';
 import { Mutation } from 'react-apollo';
 
@@ -18,7 +18,7 @@ const ADD_ADDRESS = gql`
     $number: String!
     $intNumber: String
   ) {
-    addAdress(
+    addAddress(
       state: $state
       city: $city
       neighborhood: $neighborhood
@@ -27,7 +27,13 @@ const ADD_ADDRESS = gql`
       number: $number
       intNumber: $intNumber
     ) {
+      state
       street
+      cp
+      number
+      intNumber
+      neighborhood
+      city
     }
   }
 `;
@@ -55,11 +61,12 @@ class AddCreditCardModal extends React.Component {
 
   addAdress = addAdress => {
     console.log('add Address', this.state);
-    addAddres({ variables: { ...this.state } });
+    addAdress({ variables: { ...this.state } });
   };
   onCompleted = result => {
     console.log('onClompleted', result);
   };
+  onError = error => console.log('error', error);
 
   onChangeState = state => this.setState({ state });
   onChangeCity = city => this.setState({ city });
@@ -72,11 +79,11 @@ class AddCreditCardModal extends React.Component {
   render() {
     const { state, street, city, neighborhood, cp, number, intNumber } = this.state;
     return (
-      <Mutation mutation={ADD_ADDRESS} onCompleted={this.onCompleted}>
+      <Mutation mutation={ADD_ADDRESS} onCompleted={this.onCompleted} onError={this.onError}>
         {(addAdress, { data, loading, error }) => {
           return (
-            <View
-              style={{
+            <ScrollView
+              contentContainerStyle={{
                 display: 'flex',
                 flexDirection: 'column',
                 paddingHorizontal: 32,
@@ -103,7 +110,7 @@ class AddCreditCardModal extends React.Component {
                 onPress={() => this.addAdress(addAdress)}
                 style={{ marginTop: 32 }}
               />
-            </View>
+            </ScrollView>
           );
         }}
       </Mutation>

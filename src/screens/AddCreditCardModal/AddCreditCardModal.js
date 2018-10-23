@@ -9,6 +9,7 @@ import { gql } from 'apollo-boost';
 import { Mutation } from 'react-apollo';
 import { COLORS } from '../../constants';
 
+import { GET_CARDS } from '../CreditCardsList/CreditCardsScreen';
 stripe.setOptions({
   publishableKey: 'pk_test_1tpMb5DqgwwaC4B0jP9vPgDm'
 });
@@ -55,7 +56,15 @@ export default class CustomCardScreen extends PureComponent {
       const token = await stripe.createTokenWithCard(this.state.params);
       console.log('token', token);
       this.setState({ loadingToken: false });
-      if (token && token.tokenId) createCreditCard({ variables: { token: token.tokenId } });
+      if (token && token.tokenId)
+        createCreditCard({
+          variables: { token: token.tokenId },
+          refetchQueries: [
+            {
+              query: GET_CARDS
+            }
+          ]
+        });
     } catch (error) {
       this.setState({ errorToken: error, loadingToken: false });
     }
